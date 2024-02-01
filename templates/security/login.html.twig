@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css" integrity="sha512-d0olNN35C6VLiulAobxYHZiXJmq+vl+BGIgAxQtD5+kqudro/xNMvv2yIHAciGHpExsIbKX3iLg+0B6d0k4+ZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+            body {
+    background-color: whitesmoke!important;
+}
+</style>
+        {% endblock %}
+{% block body %}
+<!-- Section: Design Block -->
+<section class="">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+           <img src="{{asset('images/login.png')}}">
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card" style="height:810px">
+            
+            <div class="card-body py-5 px-md-5">
+                <div class="mb-4" >
+                <h2>Welcome back!</h2>
+                <p>Clarity gives you the blocks and components you need to create a truly professional website</p>
+            </div>
+              <form method="POST"> 
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="inputEmail">Email address</label>
+                  <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="inputPassword">Password</label>
+                  <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="row mb-4">
+                    <div class="col-md-6 d-flex">
+                    <!-- Checkbox -->
+                    <div class="form-check mb-3 mb-md-0">
+                        <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                        <label class="form-check-label" for="loginCheck"> Remember me </label>
+                    </div>
+                    </div>
+
+                    <div class="col-md-6 d-flex justify-content-center">
+                    <!-- Simple link -->
+                    <a href="{{path('app_forgot_password_request')}}">Forgot password?</a>
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div class="row mb-4">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-block w-100">
+                        Sign up
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Register buttons -->
+                <div class="text-center">
+                  <p>OR</p>
+                  <div class="row mb-4">
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <a class="btn btn-block btn-primary" href="{{path('google_connect')}}"
+                        style="background-color: hsl(0, 0%, 96%);color:black;border-color:hsl(0, 0%, 96%);height:37.8px;">
+                            <i class="fab fa-google me-2"></i> Sign in with google
+                        </a>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <a class="btn btn-block btn-primary mb-2" href="{{path('facebook_connect')}}" 
+                        style="background-color: hsl(0, 0%, 96%);color:black;border-color:hsl(0, 0%, 96%);" >
+                            <i class="fab fa-facebook-f me-2"></i>Sign in with facebook
+                        </a> 
+                    </div>
+                    <div class="card-body py-5 px-md-5">
+                        <div class="mb-4" > 
+                        <p>don't have an account? <a href="{{path('app_register')}}">Create free account<a/></p>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
+{% endblock %}
